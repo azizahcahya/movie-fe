@@ -1,0 +1,33 @@
+
+body{
+    background: #fff;
+    user-select: none;
+    font-family: 'Varela Round', sans-serif;
+}
+.navbar{
+    background-color: #3A9BDC;
+    text-decoration: center;
+    font-weight: bold;
+}
+
+.header .nav-item{
+    font-weight: bold;
+}
+
+.navbar-brand{
+    width: 10%;    
+}
+
+.header .nav-item:hover{
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    
+}
+
+.figure:hover{
+    border: 2px solid #3A9BDC;
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden; 
+    margin: -5px;
+}

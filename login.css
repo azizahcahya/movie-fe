@@ -1,0 +1,27 @@
+body{
+    font-family: 'Varela Round', sans-serif;
+    color: #393737;
+}
+
+form{
+    background: rgba(23, 162, 184, 0.5);
+    width: 30%;
+    padding: 50px;
+    margin-top: 5%;
+    margin-left: 35%;
+    margin-bottom: 20%;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+h5{
+    text-align: center;
+    margin-bottom: 35px;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+button{
+    margin-left: 35%;
+}

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Movies Rekomendation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Movies Recommendation</title>
 </head>
 <style>
     body{
@@ -25,22 +25,49 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="home.html" aria-current="page">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       <a class="nav-link text-white " href="sinopsis.html">Sinopsis</a>
-                  </li>
+                  </li> -->
             </header>
         </div>
       </div>
 
-      <h4 class="d-flex justify-content-center py-3" style="text-decoration: underline;">TITLE</h4>
-      <img class="mx-auto d-block" src="./asset/film-1.jpg" wsidth="230" height="300" alt="">
+      <h4 class="d-flex justify-content-center py-3 movie-title" style="text-decoration: underline;">TITLE</h4>
+      <img class="mx-auto d-block movie-image" src="https://dummyimage.com/230x300/000/fff&text=movie-image" width="230" height="300" alt="image-movie">
       <div class="container mt-4" style="background: rgba(23, 162, 184, 0.5);">
-        <h5>Cast : Tom Holland, Zendaya, Benedict Cumberbatch </h5>
-        <h5>Rating : 8.4</h5>
+        <h5 class="movie-cast">Cast : None </h5>
+        <h5 class="movie-rating">Rating : none</h5>
         <h5>Sinopsis</h5>
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-        </p>
-
+        <p class="movie-sinopsis">none</p>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(() => {
+      const baseurl = 'http://127.0.0.1:3000';
+      const urlParams = new URLSearchParams(window.location.search);
+        $.ajax({
+        url: baseurl + '/movie/api/v1/movies/'+urlParams.get('movie_id'),
+        headers : {
+          Authorization : 'Bearer '+Cookies.get('auth_token')
+        },
+        type : 'GET',
+        success: (res) => {
+            // console.log(res);
+            $('.movie-title').text(res.title);
+            $('.movie-cast').text(res.cast.join(', '));
+            $('.movie-sinopsis').text(res.synopsis);
+            $('.movie-rating').text(res.rating);
+            $('.movie-image').attr('src',res.image_link);
+        },
+        error: (jqXHR, textStatus, errorThrown) => {
+            alert('error : ' + textStatus + " " + errorThrown);
+        }
+        });
+      });
+    </script>
 </body>
 </html>

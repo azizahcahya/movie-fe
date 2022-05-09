@@ -6,26 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="login.css">
-    <title>Movies Rekomendation</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+    <title>Movies Recommendation</title>
 </head>
 <body>
-    <form>
+    <form id="form-login">
         <h5>LOGIN</h5>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="password" class="form-control" id="name" placeholder="Name">
-            </div>
-        <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <button type="button" class="btn btn-submit btn-primary">Submit</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+    const baseurl = 'http://127.0.0.1:3000';
+    $('.btn-submit').on('click', () => {
+
+        let data = $('#form-login').serialize();
+
+        $.ajax({
+        url: baseurl + '/movie/api/v1/auth/login',
+        type : 'POST',
+        data : data,
+        success: (res) => {
+            // console.log(res);
+            Cookies.set('auth_token', res.tokens.access.token);
+            window.location.href = 'home.html'
+        },
+        error: (jqXHR, textStatus, errorThrown) => {
+            alert('error : ' + textStatus + " " + errorThrown);
+        }
+        });
+    
+    });
+});
+    </script>
 </body>
 </html>
